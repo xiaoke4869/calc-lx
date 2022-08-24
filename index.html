@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0,viewport-fit=cover">
+    <title>
+        Calculator
+    </title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            background: #fff;
+            color: #666;
+            font: 14px Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: #666;
+        }
+        .container {
+            margin-right: auto;
+            margin-left: auto
+        }
+        .header {
+            height: 31px;
+            line-height: 31px;
+            padding: 14px 0;
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            margin-bottom: 20px;
+        }
+        .main {
+            padding: 0 20px;
+        }
+        .inner {
+            
+        }
+        .box a {
+            display: inline-block;
+            padding: 1px 17px 0;
+            line-height: 36px;
+        }
+        .item-title {
+            font-weight: bold;
+            color: #666;
+        }
+        .item-desc {
+            font-size: 12px;
+            font-weight: bold;
+            color: #888;
+        }
+        .item-input {
+            height: 30px;
+            line-height: 24px;
+            font-size: 18px;
+            margin: 10px 20px;
+            border: 1px solid #e1e1e1;
+            font-family: "黑体";
+            line-height: 27px;
+            color: #777;
+            background-color: transparent;
+            text-indent: 7px;
+            border: 1px solid #e1e1e1;
+            outline: none;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgb(0 0 0 / 5%);
+            transition: all 0.3s ease-in-out;
+        }
+        button {
+            width: 100%;
+            max-width: 320px;
+            height: 40px;
+            padding: 0 30px;
+            font-family: "微软雅黑";
+            font-size: 14px;
+            line-height: 40px;
+            background: -webkit-gradient(linear,left top,right top,from(#ff5f00),to(#ffa000));
+            background: -webkit-linear-gradient(left,#ff5f00,#ffa000);
+            background: -o-linear-gradient(left,#ff5f00 0,#ffa000 100%);
+            background: linear-gradient(90deg,#ff5f00,#ffa000);
+            background-position: 1% 50%;
+            background-size: 200% 200%;
+            text-align: center;
+            color: #FFFFFF;
+            border-radius: 20px;
+            border-top-style: none;
+            border-right-style: none;
+            border-bottom-style: none;
+            border-left-style: none;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+            /*box-shadow: 0 5px 15px rgb(0 0 0 / 30%);*/
+            margin-top: 10px;
+       }
+       button:hover {
+            background-position: 99% 50%;
+           -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+       }
+       .calc-content {
+        border-top: 1px solid #e1e1e1;
+            padding: 20px 0;
+            margin: 40px 0;
+       }
+       ul>li {
+            line-height: 40px;
+            margin: 15px 0px;
+            border-left: 5px solid #ff5f00;
+            list-style: none;
+            padding: 5px 10px;
+           -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            background: -webkit-gradient(linear,left top,right top,from(#f3f3f3),to(#ff5500));
+            background: -webkit-linear-gradient(left,#f3f3f3,#ff5500);
+            background: -o-linear-gradient(left,#f3f3f3 0,#ff5500 100%);
+            background: linear-gradient(90deg,#f3f3f3,#ff5500);
+            background-size: 300% 300%;
+            background-position: 1% 50%;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+       }
+       ul>li:hover {
+            background-position: 20% 90%;
+           -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+       }
+       .number-text {
+            line-height: 22px;
+            font-size: 22px;
+            font-weight: bold;
+            font-family: "黑体";
+            margin: 0 5px;
+            color: #ff6600;
+       }
+       .row {
+            width: 100%;
+       }
+       #result-list {
+            padding: 0;
+       }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="inner">
+                <div class="box">
+                    <a href="javascript:void(0)">Calculator</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="calc-header">
+                <div class="row">
+                    <span class="item-title">本金</span>
+                    <input class="item-input" type="number" id="money" step="10000" value="10000" />
+                </div>
+                <div class="row">
+                    <span class="item-title">年化</span>
+                    <input class="item-input" type="number" id="rate" step="0.01" value="3.00" />
+                </div>
+                <div class="row">
+                    <button id="submit">
+                        Go
+                    </button>
+                </div>
+            </div>
+
+            <div class="calc-content">
+                <span class="item-title">Result</span>
+                <ul id="result-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calc() {
+            var money = $("#money").val();
+            var rate = $("#rate").val();
+
+            var days = [
+                1, 10, 30, 60, 90, 180, 365
+            ];
+
+            days.reverse();
+
+            $("#result-list").html('');
+
+            for (var i = days.length - 1; i >= 0; i--) {
+                var inte = money * rate / 365 / 100;
+                var inteByNum = inte * days[i]
+                var htmlText = '<li> ' + days[i] + '天的利息为<span class=\'number-text\'>' + (inteByNum.toFixed(4)) +  '</span> 元 </li>'
+                $("#result-list").append(htmlText);
+            }
+        }
+
+        $("#submit").on('click', function() {
+            calc();
+        });
+
+        $("#money").on('change', function() {
+            calc();
+        });
+
+        $("#rate").on('change', function() {
+            calc();
+        });
+
+    </script>
+</body>
+
+</html>
